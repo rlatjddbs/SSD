@@ -37,7 +37,7 @@ args = Parser().parse_args(iterparser)
 ##############################################################################
 
 env = datasets.load_environment(args.dataset)
-env = wrappers.Monitor(env, f'{args.logbase}/{args.dataset}/{args.exp_name}', force=True)
+# env = wrappers.Monitor(env, f'{args.logbase}/{args.dataset}/{args.exp_name}', force=True)
 # env.seed(args.epi_seed)
 horizon = args.horizon
 
@@ -110,18 +110,6 @@ elif args.control == 'fetch':
     policy = FetchControl(dc.ema_model, dataset.normalizer, observation_dim, goal_dim, has_object)
 else: 
     NotImplementedError(args.control)
-
-## Init wandb
-if args.wandb:
-    print('Wandb init...')
-    wandb_dir = '/tmp/'
-    os.makedirs(wandb_dir, exist_ok=True)
-    wandb.init(project=args.prefix.replace('/', '-'),
-               entity='aaai2024',
-               config=args,
-               dir=wandb_dir,
-               )
-    wandb.run.name = f"{args.target_v}-{args.dataset}"
 
 ##############################################################################
 ############################## Start iteration ###############################
@@ -236,7 +224,6 @@ if 'Fetch' in args.dataset:
     success = (reward == 1)
     print('success:', success)
     renderer.composite(f'{args.logbase}/{args.dataset}/{args.exp_name}/rollout.png', rollout_sim)
-    env.close()
 # else:
     # renderer.composite(f'{args.logbase}/{args.dataset}/{args.exp_name}/rollout.png', rollout)
     
