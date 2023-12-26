@@ -299,8 +299,6 @@ class DiffuserCritic(object):
                 
                 print(f'{self.step}: loss_d: {loss_d:8.4f} | loss_q:{loss_q:8.4f} | q:{q.mean():8.4f} | time:{timer()}', flush=True)
 
-                if self.wandb:
-                    wandb.log(output, step = self.step)
                     
             self.step += 1
     

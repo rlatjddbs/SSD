@@ -37,8 +37,6 @@ args = Parser().parse_args(iterparser)
 ##############################################################################
 
 env = datasets.load_environment(args.dataset)
-# env = wrappers.Monitor(env, f'{args.logbase}/{args.dataset}/{args.exp_name}', force=True)
-# env.seed(args.epi_seed)
 horizon = args.horizon
 
 dataset = datasets.SequenceDataset(
@@ -199,9 +197,7 @@ for t in range(env.max_episode_steps):
         f't: {t} | {output_str} |'
         f'{action}'
     )
-    
-    if args.wandb:
-        wandb.log(output, step = t)
+
 
     if 'maze2d' in args.dataset:
         xy = next_state[:2]
@@ -229,5 +225,3 @@ if 'Fetch' in args.dataset:
     
 # renderer.render_rollout(f'{args.logbase}/{args.dataset}/{args.exp_name}/rollout.mp4', rollout_sim)
 
-if args.wandb:
-    wandb.finish()

@@ -224,15 +224,7 @@ class DecisionDiffuser(object):
                 
             if self.step % self.log_freq == 0:
                 print(f'{self.step}: loss_d: {loss_d:8.4f} | loss_q:{loss_q:8.4f} | q:{q.mean():8.4f} | time:{timer()}', flush=True)
-                if self.wandb:
-                    wandb.log({
-                        "loss_d": loss_d,
-                        "loss_q": loss_q,
-                        "loss_q_val": loss_q_val,
-                        "Q": q.mean(),
-                        "qloss1": qloss1,
-                        "qloss2": qloss2,
-                    }, step = self.step)
+
                     
             self.step += 1
     

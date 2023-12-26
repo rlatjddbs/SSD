@@ -98,17 +98,6 @@ dc = DiffuserCritic(
 #     label_freq=int(args.n_train_steps // args.n_saves),
 #     wandb=args.wandb,
 # )
-if args.wandb:
-    print('Wandb init...')
-    wandb_dir = '/tmp/'
-    os.makedirs(wandb_dir, exist_ok=True)
-    wandb.init(project=args.prefix.replace('/', '-'),
-               entity='aaai2024',
-               config=args,
-            #    group='H16_T50_control-fetch',
-               dir=wandb_dir,
-               )
-    wandb.run.name = f"{args.dataset}"
     
 utils.report_parameters(dc.diffuser)
 utils.report_parameters(dc.critic)
@@ -125,5 +114,3 @@ for i in range(n_epochs):
     print(f'Epoch {i} / {n_epochs} | {args.savepath}')
     dc.train(n_train_steps=args.n_steps_per_epoch)
     
-if args.wandb:
-    wandb.finish()

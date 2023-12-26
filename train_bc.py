@@ -73,21 +73,8 @@ else:
                 wandb=args.wandb
                 )
 
-if args.wandb:
-    print('Wandb init...')
-    wandb_dir = '/ext_hdd/sykim/wandb'
-    os.makedirs(wandb_dir, exist_ok=True)
-    wandb.init(project='rebuttal_bc',
-               entity='aaai2024',
-               config=args,
-               dir=wandb_dir,
-               )
-    wandb.run.name = f"{args.env}"
 
 
 for i in range(args.epoch):
     print(f'Epoch {i} / {args.epoch}')
     bc.train(args.n_train_steps)
-
-if args.wandb:
-    wandb.finish()

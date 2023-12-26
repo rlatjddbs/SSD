@@ -106,8 +106,6 @@ class BC(object):
                           "q_ner": 0,
                           "loss_a": loss_a}
             
-                if self.wandb:
-                    wandb.log(output, step = self.step)
             self.step += 1
             
             if self.step % 1000 == 0:
@@ -131,8 +129,6 @@ class BC(object):
                             state = next_state
                         total_return += epi_return
                         print('epi return: ', epi_return)
-                    if self.wandb:
-                        wandb.log({"return": total_return/10}, step=self.step)
            
 class BCCritic(object):
     def __init__(self,
@@ -281,8 +277,6 @@ class BCCritic(object):
                           "q_ner": q_ner.mean(),
                           "loss_a": loss_a}
             
-                if self.wandb:
-                    wandb.log(output, step = self.step)
             self.step += 1
             
             if self.step % 1000 == 0:
@@ -307,8 +301,6 @@ class BCCritic(object):
                             state = next_state
                         total_return += epi_return
                         print('epi return: ', epi_return)
-                    if self.wandb:
-                        wandb.log({"return": total_return/10}, step=self.step)
                         
 class FetchBCCritic(object):
     def __init__(self,
@@ -457,8 +449,6 @@ class FetchBCCritic(object):
                           "q_ner": q_ner.mean(),
                           "loss_a": loss_a}
             
-                if self.wandb:
-                    wandb.log(output, step = self.step)
             self.step += 1
             
             if self.step % 1000 == 0:
@@ -508,12 +498,3 @@ class FetchBCCritic(object):
                     print(f'Discounted_Return: {dis_return:.2f} | Success_Rate: {success_rate:.2f} | Final_Distance: {distances:.2f}' )
                     print(total_1st_step)
   
-                    if self.wandb:
-                        wandb.log({
-                                "final_distance": distances, 
-                                "discounted_return": dis_return, 
-                                "success_rate": success_rate,
-                                "undiscoutned_return" : undis_return,
-                                "require_step": np.mean(total_1st_step)
-                                }, 
-                                step=self.step)

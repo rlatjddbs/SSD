@@ -84,7 +84,7 @@ base = {
         'n_samples': [10],
         'bucket': [None],
         'device': ['cuda'],
-        'wandb': [True],
+        'wandb': [False],
     },
     
     'evaluate': {

@@ -145,18 +145,6 @@ condition = torch.tensor([[args.target_v]]).to(args.device)
 # condition[0, -1] = 1
 gamma = dc.critic.gamma
 
-## Init wandb
-if args.wandb:
-    print('Wandb init...')
-    wandb_dir = '/tmp/sykim/wandb'
-    os.makedirs(wandb_dir, exist_ok=True)
-    wandb.init(project=args.prefix.replace('/', '-'),
-               entity='diffusercritic',
-               config=args,
-               dir=wandb_dir,
-               )
-    wandb.run.name = f"DD_{args.dataset}"
-
 ##############################################################################
 ############################## Start iteration ###############################
 ##############################################################################
@@ -209,13 +197,6 @@ for t in range(env.max_episode_steps):
         f'{action}'
     )
     rollout.append(state.copy())
-    
-    if args.wandb:
-        wandb.log({
-            "reward": reward,
-            "total_reward": total_reward,
-            "score": score,
-        }, step = t)
 
     if 'maze2d' in args.dataset:
         xy = next_state[:2]
@@ -234,6 +215,3 @@ for t in range(env.max_episode_steps):
 
 # renderer.composite(f'{args.logbase}/{args.dataset}/{args.exp_name}/sample-{args.epi_seed}.png', samples[0, :, :observation_dim])
 dc.render_samples(sequence[None], args.epi_seed)
-
-if args.wandb:
-    wandb.finish()

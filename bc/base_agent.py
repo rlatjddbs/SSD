@@ -291,7 +291,6 @@ class BaseAgent:
                     # total_episodes = MPI.COMM_WORLD.allreduce(self.num_episodes, op=MPI.SUM)
                     total_episodes = self.num_episodes
                     results.update({'future_p': future_p, 'epoch':epoch, 'episode': total_episodes, 'step': total_episodes*self.env_params['max_timesteps']})
-                    wandb.log(results)
                     print('[{}] epoch is: {}, eval success rate is: {:.3f}, final_distance is: {:.3f}'.format(datetime.now(), epoch, results['Test/success_rate'], results['Test/final_distance']))
 
                     torch.save([self.o_norm.mean, self.o_norm.std, self.g_norm.mean, self.g_norm.std, self.actor_network], \
