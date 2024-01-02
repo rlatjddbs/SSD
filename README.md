@@ -1,6 +1,6 @@
 # SSD
 Training and evaluation of "Stitching Sub-Trajectories with Conditional Diffusion Model for Goal-Conditioned Offline RL" (preprint). 
-The [sy branch](https://github.com/rlatjddbs/DC/tree/sy) contains the main code for training.
+The [latest](https://github.com/rlatjddbs/DC/tree/latest) contains the main code for training.
 
 ## Prerequisites
 1. __Download D4RL__
